@@ -22,8 +22,11 @@ def decode_password_with_click(rotations):
         if direction == 'L':
             original_position = position
             position -= steps
-            if position < 0 and original_position > 0:
-                counts_of_zero += (-position - 1) // 100 + 1
+            if position < 0:
+                if original_position > 0:
+                    counts_of_zero += (-position - 1) // 100 + 1
+                else:
+                    counts_of_zero += (-position - 1) // 100
             if position % 100 == 0:
                 counts_of_zero += 1
         elif direction == 'R':
@@ -33,7 +36,7 @@ def decode_password_with_click(rotations):
     return counts_of_zero
 
 if __name__ == "__main__":
-    with open("2025/inputs/day1_input_short.txt", "r") as file:
+    with open("2025/inputs/day1_input.txt", "r") as file:
         rotations = file.read().strip().split("\n")
     result = decode_password(rotations)
     print(f"Number of times position 0 is reached with v1: {result}")
